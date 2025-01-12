@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const Car = require("./model/carModel");
 const dotenv = require("dotenv");
 dotenv.config({ path: "../config.env" });
 const app = express();
@@ -20,10 +21,10 @@ mongoose.connect(db, {
   
   console.log("Connected to MongoDB");
 });
-
-
 app.get("/", async (req, res) => {
+  const data = await Car.findOne();
   res.status(200).json({
+    data,
   });
 });
 
