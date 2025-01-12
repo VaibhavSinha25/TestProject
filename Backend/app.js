@@ -1,0 +1,24 @@
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const db = process.env.DATABASE_URL.replace(
+  "<PASSWORD>",
+  process.env.DATABASE_PASSWORD
+);
+mongoose.connect(db, {}).then(() => {
+  console.log("Connected to MongoDB");
+});
+app.get("/", (req, res) => {
+  res.status(200).json({
+    data: "Vaibhav and Sumit \n Make this API Functional",
+  });
+});
+app.listen(process.env.PORT, () => {
+  console.log("Server connected ");
+});
