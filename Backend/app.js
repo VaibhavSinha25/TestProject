@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const Car = require("./model/carModel");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 const app = express();
@@ -14,9 +15,10 @@ const db = process.env.DATABASE_URL.replace(
 mongoose.connect(db, {}).then(() => {
   console.log("Connected to MongoDB");
 });
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  const data = await Car.findOne();
   res.status(200).json({
-    data: "Vaibhav and Sumit \n Make this API Functional",
+    data,
   });
 });
 app.listen(process.env.PORT, () => {
