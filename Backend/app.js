@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const carRouter = require('./routes/carroutes');
 const mongoose = require("mongoose");
 const Car = require("./model/carModel");
 const dotenv = require("dotenv");
@@ -21,12 +22,8 @@ mongoose.connect(db, {
   
   console.log("Connected to MongoDB");
 });
-app.get("/", async (req, res) => {
-  const data = await Car.findOne();
-  res.status(200).json({
-    data,
-  });
-});
+
+app.use('/',carRouter);
 
 app.listen(process.env.PORT, () => {
   console.log("Server connected ");
