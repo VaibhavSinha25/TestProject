@@ -1,7 +1,6 @@
 /*eslint-disable*/
 import { useState, useEffect } from "react";
-import "./App.css";
-
+// import "index.css";
 
 import axios from "axios";
 function App() {
@@ -14,7 +13,7 @@ function App() {
           method: "GET",
           url: "http://127.0.0.1:5000/",
         });
-        console.log(response.data);  
+        console.log(response.data);
         setMessage(response.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -24,33 +23,30 @@ function App() {
     api(); // Call API on component mount
   }, []);
 
-
-  const Car = ({msg}) => {
-    
+  const Car = ({ msg }) => {
     return (
-
-    <>
-      <li>{msg.make}</li>
-    </>
-    )
-  }
-
- 
+      <div className="bg-white shadow-lg rounded-lg p-6 mb-6 transform transition duration-500 hover:scale-105 hover:shadow-xl">
+        <h2 className="font-bold text-xl mb-2">{msg.make}</h2>
+        <p className="text-gray-700">{msg.model}</p>
+        <p className="text-gray-700">{msg.year}</p>
+        <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+          Details
+        </button>
+      </div>
+    );
+  };
 
   return (
-    <>
-      <h1>HELLO </h1>
-      <ul>
-
-         { message.map(el => 
-          <Car key = {el._id}  msg = {el}/>
-         )}
-
-      </ul>
-    
-    </>
-
-
+    <div className="min-h-screen bg-gray-100 p-4">
+      <h1 className="font-bold text-center text-[32px] mb-6">
+        Welcome To Cars App
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {message.map((el) => (
+          <Car key={el._id} msg={el} />
+        ))}
+      </div>
+    </div>
   );
 }
 
